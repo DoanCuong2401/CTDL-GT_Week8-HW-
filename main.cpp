@@ -2,8 +2,8 @@
 using namespace std;
 struct Node
 {
-    float heso; 
-    int somu;
+    float he_so; // Khởi tạo hệ số
+    int bac; // Khởi tạo bậc
     Node *link;
 };
 
@@ -22,33 +22,33 @@ Node *CallNode(float hs, int sm)
     Node *p;
     p = new Node;
     if(p == NULL) return NULL; // Kiểm tra xem bộ nhớ đã được cấp phát thành công chưa
-    p->heso = hs;
-    p->somu = sm;
+    p->he_so = hs;
+    p->bac = sm;
     p->link = NULL;
     return p;
 }
 
-void addNode(ListDT* lDT, Node *p)
+void addNode(ListDT* listDT, Node *a)
 {
-    if(lDT->first == NULL) // Danh sách rỗng
+    if(listDT->first == NULL) // Danh sách rỗng
     {
-        lDT->first = lDT->last = p;
+        listDT->first = listDT->last = a;
     }
     else
     {
-        lDT->last->link = p; // Gán địa chỉ nút cuối bằng p
-        lDT->last = p; // Chuyển p thành nút cuối
+        listDT->last->link = a; // Gán địa chỉ nút cuối bằng p
+        listDT->last = a; // Chuyển p thành nút cuối
     }
 }
 
-void attachNode(ListDT *lDT, float hs, int sm)
+void attachNode(ListDT *listDT, float hs, int sm) // Thêm phần tử cho list
 {
     Node *pDT = CallNode(hs, sm);
     if(pDT == NULL) return;
-    addNode(lDT, pDT);
+    addNode(listDT, pDT);
 }
 
-void taoDT(ListDT *lDT) {
+void taoDT(ListDT *listDT) {
     float hs;
     int sm;
     int i = 0; // Counter for elements
@@ -61,27 +61,27 @@ void taoDT(ListDT *lDT) {
         if (hs == 0) break; // Exit if coefficient is zero
         cout << "Nhap so mu = ";
         cin >> sm;
-        attachNode(lDT, hs, sm);
+        attachNode(listDT, hs, sm);
     } while (true);  // Infinite loop, broken by 'break' when hs == 0
     cout << "Ket thuc nhap" << endl;
 }
 
-void inDT(ListDT lDT)
+void inDT(ListDT listDT)
 {
-    Node *p;
-    p = lDT.first;
+    Node *a;
+    a = listDT.first;
     cout << "\nf(x) = ";
-    while (p != NULL)
+    while (a != NULL)
     {
-        cout << p->heso << " * x^" << p->somu;
-        if(p->link != NULL && p->heso != 0) cout << " + ";
-        p = p->link;
+        cout << a->he_so << " * x^" << a->bac;
+        if(a->link != NULL && a->he_so != 0) cout << " + ";
+        a = a->link;
     }
 }
 
 int main() {
-    ListDT DT1;
-    InitDT(&DT1);
-    taoDT(&DT1);
-    inDT(DT1);
+    ListDT DT;
+    InitDT(&DT);
+    taoDT(&DT);
+    inDT(DT);
 }
